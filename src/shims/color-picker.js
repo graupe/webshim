@@ -2280,7 +2280,7 @@
 
 webshims.register('color-picker', function($, webshims, window, document, undefined, options){
 	"use strict";
-	var picker = webshims.picker;
+	var curData, picker = webshims.picker, jpicker = $('<div class="ws-jpicker" />');
 	
 	picker.commonColorInit = function(data){
 		var popover = data.popover;
@@ -2293,8 +2293,7 @@ webshims.register('color-picker', function($, webshims, window, document, undefi
 	};
 	
 	picker.color.showPickerContent = (function(){
-		var _init, curData;
-		var jpicker = $('<div class="ws-jpicker" />');
+		var _init;
 		$.fn.wsjPicker.defaults.images.clientPath = webshims.cfg.basePath + 'jpicker/images/'; 
 		var jPickerApi;
 		
@@ -2377,7 +2376,6 @@ webshims.register('color-picker', function($, webshims, window, document, undefi
 		};
 		
 		var implementPickerFor = function(data){
-			createPicker();
 			if( data != curData){
 				if(curData){
 					curData.popover.hide();
@@ -2387,7 +2385,9 @@ webshims.register('color-picker', function($, webshims, window, document, undefi
 				pickerSet('setPicker', data);
 			}
 		};
-		
+
+		createPicker();
+
 		return function(data){
 			if(!data._popoverinit){
 				picker.commonInit(data, data.popover);
